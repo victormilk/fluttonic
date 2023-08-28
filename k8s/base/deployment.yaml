@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fluttonic-deployment
+  labels:
+    app: fluttonic
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fluttonic
+  template:
+    metadata:
+      name: fluttonic
+      labels:
+        app: fluttonic
+    spec:
+      containers:
+        - name: fluttonic
+          image: fluttonic
+          imagePullPolicy: IfNotPresent
+      tolerations:
+        - key: node-role.kubernetes.io/not-ready
+          effect: NoExecute
+          value: '60'
+        - key: node-role.kubernetes.io/unreachable
+          effect: NoExecute
+          value: '60'
+      restartPolicy: Always
