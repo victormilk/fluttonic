@@ -31,3 +31,5 @@ RUN flutter build web
 # Stage 3 - Serve app
 FROM nginx:alpine
 COPY --from=app_builder /app/build/web /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
